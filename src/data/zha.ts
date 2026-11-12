@@ -284,6 +284,24 @@ export const fetchBindableDevices = (
     ieee: ieeeAddress,
   });
 
+export interface ZHADeviceBinding {
+  source_endpoint: number;
+  cluster_id: number;
+  cluster_name: string | null;
+  target_ieee?: string;
+  target_endpoint?: number;
+  group_id?: number;
+}
+
+export const fetchDeviceBindings = (
+  hass: HomeAssistant,
+  ieeeAddress: string
+): Promise<ZHADeviceBinding[]> =>
+  hass.callWS({
+    type: "zha/devices/bindings",
+    ieee: ieeeAddress,
+  });
+
 export const bindDevices = (
   hass: HomeAssistant,
   sourceIEEE: string,
